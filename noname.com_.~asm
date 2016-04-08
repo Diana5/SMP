@@ -1,0 +1,112 @@
+
+; You may customize this and other start-up templates;
+; The location of this template is c:\emu8086\inc\0_com_template.txt
+
+org 100h
+
+include 'emu8086.inc'
+
+DEFINE_SCAN_NUM
+DEFINE_PRINT_NUM
+DEFINE_PRINT_NUM_UNS
+
+jmp start
+
+msg0 db "Bine ai venit!Sa calculam aria unui triunghi: "
+msg1 db 0Dh,0Ah, 0Dh,0Ah, 'Adauga valoarea bazei triunghiului: $'
+msg3 db "Adauga valoarea inaltimii triunghiului: $"
+msg4 db  0dh,0ah , 'Rezultatul este : $'
+
+; cele doua numere:
+num1 dw ?
+num2 dw ?
+
+
+start:
+mov dx, offset msg0
+mov ah, 9
+int 21h
+
+
+lea dx, msg1
+mov ah, 09h    ; output string at ds:dx
+int 21h
+
+
+; get the multi-digit signed number
+; from the keyboard, and store
+; the result in cx register:
+
+call scan_num
+
+; store first number:
+mov num1, cx
+
+
+; new line:
+putc 0Dh
+putc 0Ah
+
+
+
+; output of a string at ds:dx
+lea dx, msg3
+mov ah, 09h
+int 21h
+
+
+; get the multi-digit signed number
+; from the keyboard, and store
+; the result in cx register:
+
+call scan_num
+
+
+; store second number:
+mov num2, cx
+
+
+
+
+lea dx, msg4
+mov ah, 09h      ; output string at ds:dx
+int 21h
+
+
+
+
+; calculate:
+
+
+je do_mult
+
+
+
+
+exit:
+
+; wait for any key...
+mov ah, 0
+int 16h
+
+
+;ret  ; return back to os.
+
+
+do_mult:
+
+mov ax, num1
+imul num2 ; (dx ax) = ax * num2.
+call print_num    ; print ax value.
+; dx is ignored (calc works with tiny numbers only).
+
+jmp exit
+
+
+ret
+
+
+
+
+
+

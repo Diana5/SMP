@@ -1,0 +1,495 @@
+
+; You may customize this and other start-up templates;
+; The location of this template is c:\emu8086\inc\0_com_template.txt
+
+org 100h
+
+include 'emu8086.inc'
+
+DEFINE_SCAN_NUM    ; preluare cacartere de la tastatura
+DEFINE_PRINT_NUM     ;afisare mesaj
+DEFINE_PRINT_NUM_UNS
+
+
+jmp start    ;salt conditionat catre prima parte a programului
+
+msg0 db "Bine ai venit!Sa calculam aria unui dreptunghi: $"
+msg1 db 0Dh,0Ah, 0Dh,0Ah, 'Adauga valoarea latimii: $'
+msg2 db 0Dh,0Ah, 0Dh,0Ah, 'Adauga valoarea lungimii: $'
+msg3 db 0Dh,0Ah, 0Dh,0Ah, 'Aria dreptunghiului este : $'
+
+;aici se introduc cele doua valori pentru lungime si inaltime
+latime dw ?
+lungime dw ?
+
+;inceput program
+start:
+mov dx, offset msg0
+mov ah, 9
+int 21h
+
+
+lea dx, msg1   ; adresa efectiva a mesajului - un fel de mov dar care pointeaza spre adresa itemului, fata de mov care incarca valorea actuala a adresei
+mov ah, 09h    ; functia 'print char'
+int 21h
+
+
+;se citeste prima valoare de la tastatura
+call scan_num
+
+
+;salveaza aici valoarea latimii - in registrul cx
+mov latime, cx
+
+
+;inceput de linie noua
+putc 0Dh
+putc 0Ah
+
+
+lea dx, msg2  ; adresa efectiva a mesajului - un fel de mov dar care pointeaza spre adresa itemului, fata de mov care incarca valorea actuala a adresei
+mov ah, 09h
+int 21h
+
+
+;se citeste a doua valoare de la tastatura
+call scan_num
+
+
+;salveaza aici valoarea lungimii - in registrul cx
+mov lungime, cx
+
+
+lea dx, msg3     ;adresa efectiva a mesajului - un fel de mov dar care incarca adresa efectiva
+mov ah, 09h      ;apelare rutina de tratare intreruperi 0x21
+int 21h
+
+
+;aici se apeleaza "functia" arie
+je do_arie
+
+
+;se calculeaza aria  triunghiului cu ajutorul unei "functii"
+do_arie:
+mov ax, latime
+mul lungime
+call print_num    ; afisare valoare arie
+
+putc 13 ; linie noua
+putc 10
+
+print 'Acum urmeaza figura in 3D!'
+print 'Sa nu te sperii daca auzi beeep de mai multe ori!'
+
+putc 13 ; linie noua
+putc 10
+print " "
+print ' E doar semnalul de inceput a partii a doua a programului. '
+putc 13 ; linie noua
+putc 10
+print " "
+print ' Apasa ENTER daca vrei sa continui. '
+
+;print ' Apasa ENTER pentru a trece mai departe '
+
+
+lea si, msg
+call scan_num
+cmp ax,0
+jmp code
+
+msg DB ' ', 0
+
+;linie noua
+putc 13
+putc 10
+
+print " "
+
+mov ax, cx
+call print_num
+
+hlt
+
+jmp code  ;salt conditionat catre a doua parte aprogramului: grafica 3D
+
+
+w equ 50 ;dimensiune dreptunghi de baza
+h equ 25
+
+
+code:
+
+mov ah, 0
+mov al, 13h ;trecere in mod grafic 320x200
+int 10h     ;scie carecter pe ecran si muta cursorul 1 pozitie
+
+
+;Aici generez sunet pentru a marca inceputul desenului 3D
+
+mov al,7  ; 7 este reprezentarea pentru "beep"
+mov ah,0eh
+int 10h
+mov al,7
+mov ah,0eh
+int 10h
+mov al,7
+mov ah,0eh
+int 10h
+mov al,7
+mov ah,0eh
+int 10h
+mov al,7
+mov ah,0eh
+int 10h
+mov al,7
+mov ah,0eh
+int 10h
+mov al,7
+mov ah,0eh
+int 10h
+mov al,7
+mov ah,0eh
+int 10h
+mov al,7
+mov ah,0eh
+int 10h
+mov al,7
+mov ah,0eh
+int 10h
+
+
+;Incepere constructie paralelipiped
+
+;Afisare latura superioara dreptunghi de baza
+
+mov cx, 130 ; coloana de inceput
+mov dx, 75 ; rand de inceput
+;mov al, 15 ; culoare
+u1: mov ah, 0ch ; afisare pixel
+mov al,60 ;setare culoare
+int 10h
+inc cx  ;incementez coloana sa ma pozitionez unde doresc sa ajung in final(capat linie)
+cmp cx, 216 ;cmp destinatie,sursa --> comapara valoare din cx cu 216
+jnz u1 ;jump not zero --> daca ZF = 0 se efectueaza saltul
+
+;Aafisare latura inferioara dreptunghi de baza
+
+mov cx, 130
+mov dx, 125
+;mov al, 30
+u2: mov ah, 0ch
+mov al,60
+int 10h
+inc cx
+cmp cx, 216
+jnz u2
+
+;Afisare latura din stanga dreptunghi de baza
+
+mov cx, 130
+mov dx, 75
+;mov al, 25
+u3: mov ah, 0ch
+mov al,60
+int 10h
+inc dx
+cmp dx, 125
+jnz u3
+
+
+;Afisare latura din dreapta dreptunghi de baza
+
+mov cx, 216
+mov dx, 75
+;mov al, 30
+u4: mov ah, 0ch
+mov al,60
+int 10h
+inc dx
+cmp dx, 126
+jnz u4
+
+
+mov cx,130
+mov dx,75
+;mov al,20
+u5: mov ah, 0ch
+mov al,60
+int 10h
+inc cx
+dec dx
+cmp cx, 150
+cmp dx, 32
+jnz u5
+
+
+mov cx,216
+mov dx,75
+;mov al,20
+u6: mov ah, 0ch
+mov al, 60
+int 10h
+inc cx
+dec dx
+cmp cx, 150
+cmp dx, 32
+jnz u6
+
+mov cx,173
+mov dx,32
+;mov al,20
+u7: mov ah, 0ch
+mov al, 60
+int 10h
+inc cx
+cmp cx,260
+jnz u7
+
+mov cx,130
+mov dx,125
+;mov al,20
+u8: mov ah, 0ch
+mov al, 60
+int 10h
+inc cx
+dec dx
+cmp cx, 180
+cmp dx, 81
+jnz u8
+
+
+mov cx,173
+mov dx,32
+;mov al,20
+u9: mov ah, 0ch
+mov al, 60
+int 10h
+inc dx
+cmp dx, 84
+jnz u9
+
+mov cx,216
+mov dx,125
+;mov al,20
+u10: mov ah, 0ch
+mov al, 60
+int 10h
+inc cx
+dec dx
+cmp cx, 230
+cmp dx, 83
+jnz u10
+
+mov cx,260
+mov dx,32
+;mov al,20
+u11: mov ah, 0ch
+mov al, 60
+int 10h
+inc dx
+cmp dx, 83
+jnz u11
+
+mov cx,175
+mov dx,83
+;mov al,20
+u12: mov ah, 0ch
+mov al,60
+int 10h
+inc cx
+cmp cx,260
+jnz u12
+
+
+;Aici generez sunet pentru a marca inceputul unei noi etape in proiect: desenarea de sore
+
+mov al,7
+mov ah,0eh
+int 10h
+mov al,7
+mov ah,0eh
+int 10h
+mov al,7
+mov ah,0eh
+int 10h
+mov al,7
+mov ah,0eh
+int 10h
+mov al,7
+mov ah,0eh
+int 10h
+mov al,7
+mov ah,0eh
+int 10h
+mov al,7
+mov ah,0eh
+int 10h
+
+;Incepere desenare SOARE
+
+;Se stabileste pozitia initiala a sorelui
+
+mov dx,15
+mov bx,80
+mov cx,50
+mov ds,cx
+
+
+;Inceput desen partea de sus a soarelui
+
+soare0: mov cx,ds ;cand bucla se repeta, cx de elibereaza pentru ca valoarea trebuie sa fie stocata
+sub cx,3 ;incepe linia galbena mai la stanga, pentru fiecare trecere/pas
+mov ds,cx;retinere valoarea lui cx pentru urmatorul pas
+
+soare1: mov ah,0ch
+mov al,0eh;setare culoare galbena
+int 10h
+inc cx
+cmp cx,bx
+jnz soare1
+
+cmp dx,22;cand s-au desenat 7 linii din soare se trece la partea de mijloc a soarelui
+je break2
+
+inc dx  ;se muta linia cu un rand mai jos pentru a fi facuta galbena
+add bx,3 ;cu fiecare pas,soarele devine mai larg
+
+jmp soare0 ;se repeta bucla cu noul dx,bx si cx
+
+break2:
+
+soare2:
+inc dx
+mov cx,ds
+
+;Inceput desen mijlocul de soare
+
+soare3: mov ah,0ch
+mov al,0eh
+int 10h
+inc cx
+cmp cx,bx
+jnz soare3
+
+cmp dx,36;se sare la partea de jos a soarelui cand cele 13 randuri au fost colorate galben
+je break3
+
+jmp soare2
+
+break3:
+
+;Inceput desen partea de jos a soarelui,care se pliaza pe aceeasi idee descrisa mai sus, la partea de sus a soarelui
+
+soare4:
+inc dx
+mov cx,ds
+add cx,3  ;incepe linia galbena mai la dreapta, cu piecare pas
+mov ds,cx
+sub bx,3  ;spre deosebire de partea superioara, in aceast parte de soare linia galbena se face din ce in ce mai mica cu fiecare rand
+
+soare5:
+mov ah,0ch
+mov al,0eh
+int 10h
+inc cx
+cmp cx,bx
+jnz soare5
+
+cmp dx,43 ;dupa inca 7 randuri, fiecare dintre acestea sunt mai inguste cele anterioare
+je breakfinal
+
+jmp soare4
+
+breakfinal:
+
+
+;Aici am adaugat sunet pentru a marca inceputul unei noi etape:inceperea desenului pentru umbra
+
+mov al,7
+mov ah,0eh
+int 10h
+mov al,7
+mov ah,0eh
+int 10h
+mov al,7
+mov ah,0eh
+int 10h
+mov al,7
+mov ah,0eh
+int 10h
+mov al,7
+mov ah,0eh
+int 10h
+
+
+;Inceput desenare umbra
+
+mov cx,130
+mov dx,125
+;mov al,20
+u13: mov ah, 0ch
+mov al, 15
+int 10h
+inc cx
+inc dx
+cmp cx, 180
+cmp dx, 150
+jnz u13
+
+mov cx,216
+mov dx,125
+;mov al,20
+u14: mov ah, 0ch
+mov al, 15
+int 10h
+inc cx
+inc dx
+cmp cx, 260
+cmp dx, 150
+jnz u14
+
+mov cx,260
+mov dx,83
+;mov al,20
+u15: mov ah, 0ch
+mov al, 15
+int 10h
+inc cx
+inc dx
+cmp cx, 304
+cmp dx, 106
+jnz u15
+
+mov cx,155
+mov dx,150
+;mov al, 20
+u16: mov ah,0ch
+mov al,15
+int 10h
+inc cx
+cmp cx, 240
+jnz u16
+
+mov cx,240
+mov dx,150
+;mov al,20
+u17: mov ah, 0ch
+mov al, 15
+int 10h
+inc cx
+dec dx
+cmp cx, 304
+cmp dx, 106
+jnz u17
+
+
+mov ah,00
+int 16h
+
+
+ret
+
+
+
+; [SOURCE]: C:\emu8086\MySource\mycode.asm

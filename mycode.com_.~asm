@@ -69,7 +69,7 @@ int 21h
 je do_arie
 
 
-;se calculeaza aria  triunghiului cu ajutorul unei "functii"
+;se calculeaza aria  dreptunghiului cu ajutorul unei "functii"
 do_arie:
 mov ax, latime
 mul lungime
@@ -112,11 +112,6 @@ call print_num
 hlt
 
 jmp code  ;salt conditionat catre a doua parte aprogramului: grafica 3D
-
-
-w equ 50 ;dimensiune dreptunghi de baza
-h equ 25
-
 
 code:
 
@@ -165,7 +160,6 @@ int 10h
 
 mov cx, 130 ; coloana de inceput
 mov dx, 75 ; rand de inceput
-;mov al, 15 ; culoare
 u1: mov ah, 0ch ; afisare pixel
 mov al,60 ;setare culoare
 int 10h
@@ -177,7 +171,6 @@ jnz u1 ;jump not zero --> daca ZF = 0 se efectueaza saltul
 
 mov cx, 130
 mov dx, 125
-;mov al, 30
 u2: mov ah, 0ch
 mov al,60
 int 10h
@@ -189,7 +182,6 @@ jnz u2
 
 mov cx, 130
 mov dx, 75
-;mov al, 25
 u3: mov ah, 0ch
 mov al,60
 int 10h
@@ -202,7 +194,6 @@ jnz u3
 
 mov cx, 216
 mov dx, 75
-;mov al, 30
 u4: mov ah, 0ch
 mov al,60
 int 10h
@@ -213,7 +204,6 @@ jnz u4
 
 mov cx,130
 mov dx,75
-;mov al,20
 u5: mov ah, 0ch
 mov al,60
 int 10h
@@ -226,7 +216,6 @@ jnz u5
 
 mov cx,216
 mov dx,75
-;mov al,20
 u6: mov ah, 0ch
 mov al, 60
 int 10h
@@ -238,7 +227,6 @@ jnz u6
 
 mov cx,173
 mov dx,32
-;mov al,20
 u7: mov ah, 0ch
 mov al, 60
 int 10h
@@ -248,7 +236,6 @@ jnz u7
 
 mov cx,130
 mov dx,125
-;mov al,20
 u8: mov ah, 0ch
 mov al, 60
 int 10h
@@ -261,7 +248,6 @@ jnz u8
 
 mov cx,173
 mov dx,32
-;mov al,20
 u9: mov ah, 0ch
 mov al, 60
 int 10h
@@ -271,7 +257,6 @@ jnz u9
 
 mov cx,216
 mov dx,125
-;mov al,20
 u10: mov ah, 0ch
 mov al, 60
 int 10h
@@ -283,7 +268,6 @@ jnz u10
 
 mov cx,260
 mov dx,32
-;mov al,20
 u11: mov ah, 0ch
 mov al, 60
 int 10h
@@ -293,7 +277,6 @@ jnz u11
 
 mov cx,175
 mov dx,83
-;mov al,20
 u12: mov ah, 0ch
 mov al,60
 int 10h
@@ -427,7 +410,6 @@ int 10h
 
 mov cx,130
 mov dx,125
-;mov al,20
 u13: mov ah, 0ch
 mov al, 15
 int 10h
@@ -439,7 +421,6 @@ jnz u13
 
 mov cx,216
 mov dx,125
-;mov al,20
 u14: mov ah, 0ch
 mov al, 15
 int 10h
@@ -451,7 +432,6 @@ jnz u14
 
 mov cx,260
 mov dx,83
-;mov al,20
 u15: mov ah, 0ch
 mov al, 15
 int 10h
@@ -463,7 +443,6 @@ jnz u15
 
 mov cx,155
 mov dx,150
-;mov al, 20
 u16: mov ah,0ch
 mov al,15
 int 10h
@@ -473,7 +452,6 @@ jnz u16
 
 mov cx,240
 mov dx,150
-;mov al,20
 u17: mov ah, 0ch
 mov al, 15
 int 10h

@@ -2,7 +2,7 @@ EMU8086 GENERATED LISTING. MACHINE CODE <- SOURCE.
  
 mycode.com_ -- emu8086 assembler version: 4.08  
  
-[ 4/7/2016  --  6:21:39 PM ] 
+[ 4/8/2016  --  12:29:10 PM ] 
  
 ===================================================================================================
 [LINE]     LOC: MACHINE CODE                          SOURCE
@@ -114,7 +114,7 @@ mycode.com_ -- emu8086 assembler version: 4.08
 [  69]    030E: 74 00                                 je do_arie
 [  70]        :                                       
 [  71]        :                                       
-[  72]        :                                       ;se calculeaza aria  triunghiului cu ajutorul unei "functii"
+[  72]        :                                       ;se calculeaza aria  dreptunghiului cu ajutorul unei "functii"
 [  73]    0310:                                       do_arie:
 [  74]    0310: A1 D0 02                              mov ax, latime
 [  75]    0313: F7 26 D2 02                           mul lungime
@@ -185,383 +185,361 @@ mycode.com_ -- emu8086 assembler version: 4.08
 [ 113]        :                                       
 [ 114]    04C2: EB 00                                 jmp code  ;salt conditionat catre a doua parte aprogramului: grafica 3D
 [ 115]        :                                       
-[ 116]        :                                       
-[ 117]        :                                       w equ 50 ;dimensiune dreptunghi de baza
-[ 118]        :                                       h equ 25
-[ 119]        :                                       
-[ 120]        :                                       
-[ 121]    04C4:                                       code:
+[ 116]    04C4:                                       code:
+[ 117]        :                                       
+[ 118]    04C4: B4 00                                 mov ah, 0
+[ 119]    04C6: B0 13                                 mov al, 13h ;trecere in mod grafic 320x200
+[ 120]    04C8: CD 10                                 int 10h     ;scie carecter pe ecran si muta cursorul 1 pozitie
+[ 121]        :                                       
 [ 122]        :                                       
-[ 123]    04C4: B4 00                                 mov ah, 0
-[ 124]    04C6: B0 13                                 mov al, 13h ;trecere in mod grafic 320x200
-[ 125]    04C8: CD 10                                 int 10h     ;scie carecter pe ecran si muta cursorul 1 pozitie
-[ 126]        :                                       
-[ 127]        :                                       
-[ 128]        :                                       ;Aici generez sunet pentru a marca inceputul desenului 3D
-[ 129]        :                                       
-[ 130]    04CA: B0 07                                 mov al,7  ; 7 este reprezentarea pentru "beep"
-[ 131]    04CC: B4 0E                                 mov ah,0eh
-[ 132]    04CE: CD 10                                 int 10h
-[ 133]    04D0: B0 07                                 mov al,7
-[ 134]    04D2: B4 0E                                 mov ah,0eh
-[ 135]    04D4: CD 10                                 int 10h
-[ 136]    04D6: B0 07                                 mov al,7
-[ 137]    04D8: B4 0E                                 mov ah,0eh
-[ 138]    04DA: CD 10                                 int 10h
-[ 139]    04DC: B0 07                                 mov al,7
-[ 140]    04DE: B4 0E                                 mov ah,0eh
-[ 141]    04E0: CD 10                                 int 10h
-[ 142]    04E2: B0 07                                 mov al,7
-[ 143]    04E4: B4 0E                                 mov ah,0eh
-[ 144]    04E6: CD 10                                 int 10h
-[ 145]    04E8: B0 07                                 mov al,7
-[ 146]    04EA: B4 0E                                 mov ah,0eh
-[ 147]    04EC: CD 10                                 int 10h
-[ 148]    04EE: B0 07                                 mov al,7
-[ 149]    04F0: B4 0E                                 mov ah,0eh
-[ 150]    04F2: CD 10                                 int 10h
-[ 151]    04F4: B0 07                                 mov al,7
-[ 152]    04F6: B4 0E                                 mov ah,0eh
-[ 153]    04F8: CD 10                                 int 10h
-[ 154]    04FA: B0 07                                 mov al,7
-[ 155]    04FC: B4 0E                                 mov ah,0eh
-[ 156]    04FE: CD 10                                 int 10h
-[ 157]    0500: B0 07                                 mov al,7
-[ 158]    0502: B4 0E                                 mov ah,0eh
-[ 159]    0504: CD 10                                 int 10h
+[ 123]        :                                       ;Aici generez sunet pentru a marca inceputul desenului 3D
+[ 124]        :                                       
+[ 125]    04CA: B0 07                                 mov al,7  ; 7 este reprezentarea pentru "beep"
+[ 126]    04CC: B4 0E                                 mov ah,0eh
+[ 127]    04CE: CD 10                                 int 10h
+[ 128]    04D0: B0 07                                 mov al,7
+[ 129]    04D2: B4 0E                                 mov ah,0eh
+[ 130]    04D4: CD 10                                 int 10h
+[ 131]    04D6: B0 07                                 mov al,7
+[ 132]    04D8: B4 0E                                 mov ah,0eh
+[ 133]    04DA: CD 10                                 int 10h
+[ 134]    04DC: B0 07                                 mov al,7
+[ 135]    04DE: B4 0E                                 mov ah,0eh
+[ 136]    04E0: CD 10                                 int 10h
+[ 137]    04E2: B0 07                                 mov al,7
+[ 138]    04E4: B4 0E                                 mov ah,0eh
+[ 139]    04E6: CD 10                                 int 10h
+[ 140]    04E8: B0 07                                 mov al,7
+[ 141]    04EA: B4 0E                                 mov ah,0eh
+[ 142]    04EC: CD 10                                 int 10h
+[ 143]    04EE: B0 07                                 mov al,7
+[ 144]    04F0: B4 0E                                 mov ah,0eh
+[ 145]    04F2: CD 10                                 int 10h
+[ 146]    04F4: B0 07                                 mov al,7
+[ 147]    04F6: B4 0E                                 mov ah,0eh
+[ 148]    04F8: CD 10                                 int 10h
+[ 149]    04FA: B0 07                                 mov al,7
+[ 150]    04FC: B4 0E                                 mov ah,0eh
+[ 151]    04FE: CD 10                                 int 10h
+[ 152]    0500: B0 07                                 mov al,7
+[ 153]    0502: B4 0E                                 mov ah,0eh
+[ 154]    0504: CD 10                                 int 10h
+[ 155]        :                                       
+[ 156]        :                                       
+[ 157]        :                                       ;Incepere constructie paralelipiped
+[ 158]        :                                       
+[ 159]        :                                       ;Afisare latura superioara dreptunghi de baza
 [ 160]        :                                       
-[ 161]        :                                       
-[ 162]        :                                       ;Incepere constructie paralelipiped
-[ 163]        :                                       
-[ 164]        :                                       ;Afisare latura superioara dreptunghi de baza
-[ 165]        :                                       
-[ 166]    0506: B9 82 00                              mov cx, 130 ; coloana de inceput
-[ 167]    0509: BA 4B 00                              mov dx, 75 ; rand de inceput
-[ 168]        :                                       ;mov al, 15 ; culoare
-[ 169]    050C: B4 0C                                 u1: mov ah, 0ch ; afisare pixel
-[ 170]    050E: B0 3C                                 mov al,60 ;setare culoare
-[ 171]    0510: CD 10                                 int 10h
-[ 172]    0512: 41                                    inc cx  ;incementez coloana sa ma pozitionez unde doresc sa ajung in final(capat linie)
-[ 173]    0513: 81 F9 D8 00                           cmp cx, 216 ;cmp destinatie,sursa --> comapara valoare din cx cu 216
-[ 174]    0517: 75 F3                                 jnz u1 ;jump not zero --> daca ZF = 0 se efectueaza saltul
-[ 175]        :                                       
-[ 176]        :                                       ;Aafisare latura inferioara dreptunghi de baza
-[ 177]        :                                       
-[ 178]    0519: B9 82 00                              mov cx, 130
-[ 179]    051C: BA 7D 00                              mov dx, 125
-[ 180]        :                                       ;mov al, 30
-[ 181]    051F: B4 0C                                 u2: mov ah, 0ch
-[ 182]    0521: B0 3C                                 mov al,60
-[ 183]    0523: CD 10                                 int 10h
-[ 184]    0525: 41                                    inc cx
-[ 185]    0526: 81 F9 D8 00                           cmp cx, 216
-[ 186]    052A: 75 F3                                 jnz u2
-[ 187]        :                                       
-[ 188]        :                                       ;Afisare latura din stanga dreptunghi de baza
-[ 189]        :                                       
-[ 190]    052C: B9 82 00                              mov cx, 130
-[ 191]    052F: BA 4B 00                              mov dx, 75
-[ 192]        :                                       ;mov al, 25
-[ 193]    0532: B4 0C                                 u3: mov ah, 0ch
-[ 194]    0534: B0 3C                                 mov al,60
-[ 195]    0536: CD 10                                 int 10h
-[ 196]    0538: 42                                    inc dx
-[ 197]    0539: 83 FA 7D                              cmp dx, 125
-[ 198]    053C: 75 F4                                 jnz u3
-[ 199]        :                                       
-[ 200]        :                                       
-[ 201]        :                                       ;Afisare latura din dreapta dreptunghi de baza
-[ 202]        :                                       
-[ 203]    053E: B9 D8 00                              mov cx, 216
-[ 204]    0541: BA 4B 00                              mov dx, 75
-[ 205]        :                                       ;mov al, 30
-[ 206]    0544: B4 0C                                 u4: mov ah, 0ch
-[ 207]    0546: B0 3C                                 mov al,60
-[ 208]    0548: CD 10                                 int 10h
-[ 209]    054A: 42                                    inc dx
-[ 210]    054B: 83 FA 7E                              cmp dx, 126
-[ 211]    054E: 75 F4                                 jnz u4
-[ 212]        :                                       
-[ 213]        :                                       
-[ 214]    0550: B9 82 00                              mov cx,130
-[ 215]    0553: BA 4B 00                              mov dx,75
-[ 216]        :                                       ;mov al,20
-[ 217]    0556: B4 0C                                 u5: mov ah, 0ch
-[ 218]    0558: B0 3C                                 mov al,60
-[ 219]    055A: CD 10                                 int 10h
-[ 220]    055C: 41                                    inc cx
-[ 221]    055D: 4A                                    dec dx
-[ 222]    055E: 81 F9 96 00                           cmp cx, 150
-[ 223]    0562: 83 FA 20                              cmp dx, 32
-[ 224]    0565: 75 EF                                 jnz u5
-[ 225]        :                                       
-[ 226]        :                                       
-[ 227]    0567: B9 D8 00                              mov cx,216
-[ 228]    056A: BA 4B 00                              mov dx,75
-[ 229]        :                                       ;mov al,20
-[ 230]    056D: B4 0C                                 u6: mov ah, 0ch
-[ 231]    056F: B0 3C                                 mov al, 60
-[ 232]    0571: CD 10                                 int 10h
-[ 233]    0573: 41                                    inc cx
-[ 234]    0574: 4A                                    dec dx
-[ 235]    0575: 81 F9 96 00                           cmp cx, 150
-[ 236]    0579: 83 FA 20                              cmp dx, 32
-[ 237]    057C: 75 EF                                 jnz u6
-[ 238]        :                                       
-[ 239]    057E: B9 AD 00                              mov cx,173
-[ 240]    0581: BA 20 00                              mov dx,32
-[ 241]        :                                       ;mov al,20
-[ 242]    0584: B4 0C                                 u7: mov ah, 0ch
-[ 243]    0586: B0 3C                                 mov al, 60
-[ 244]    0588: CD 10                                 int 10h
-[ 245]    058A: 41                                    inc cx
-[ 246]    058B: 81 F9 04 01                           cmp cx,260
-[ 247]    058F: 75 F3                                 jnz u7
+[ 161]    0506: B9 82 00                              mov cx, 130 ; coloana de inceput
+[ 162]    0509: BA 4B 00                              mov dx, 75 ; rand de inceput
+[ 163]    050C: B4 0C                                 u1: mov ah, 0ch ; afisare pixel
+[ 164]    050E: B0 3C                                 mov al,60 ;setare culoare
+[ 165]    0510: CD 10                                 int 10h
+[ 166]    0512: 41                                    inc cx  ;incementez coloana sa ma pozitionez unde doresc sa ajung in final(capat linie)
+[ 167]    0513: 81 F9 D8 00                           cmp cx, 216 ;cmp destinatie,sursa --> comapara valoare din cx cu 216
+[ 168]    0517: 75 F3                                 jnz u1 ;jump not zero --> daca ZF = 0 se efectueaza saltul
+[ 169]        :                                       
+[ 170]        :                                       ;Aafisare latura inferioara dreptunghi de baza
+[ 171]        :                                       
+[ 172]    0519: B9 82 00                              mov cx, 130
+[ 173]    051C: BA 7D 00                              mov dx, 125
+[ 174]    051F: B4 0C                                 u2: mov ah, 0ch
+[ 175]    0521: B0 3C                                 mov al,60
+[ 176]    0523: CD 10                                 int 10h
+[ 177]    0525: 41                                    inc cx
+[ 178]    0526: 81 F9 D8 00                           cmp cx, 216
+[ 179]    052A: 75 F3                                 jnz u2
+[ 180]        :                                       
+[ 181]        :                                       ;Afisare latura din stanga dreptunghi de baza
+[ 182]        :                                       
+[ 183]    052C: B9 82 00                              mov cx, 130
+[ 184]    052F: BA 4B 00                              mov dx, 75
+[ 185]    0532: B4 0C                                 u3: mov ah, 0ch
+[ 186]    0534: B0 3C                                 mov al,60
+[ 187]    0536: CD 10                                 int 10h
+[ 188]    0538: 42                                    inc dx
+[ 189]    0539: 83 FA 7D                              cmp dx, 125
+[ 190]    053C: 75 F4                                 jnz u3
+[ 191]        :                                       
+[ 192]        :                                       
+[ 193]        :                                       ;Afisare latura din dreapta dreptunghi de baza
+[ 194]        :                                       
+[ 195]    053E: B9 D8 00                              mov cx, 216
+[ 196]    0541: BA 4B 00                              mov dx, 75
+[ 197]    0544: B4 0C                                 u4: mov ah, 0ch
+[ 198]    0546: B0 3C                                 mov al,60
+[ 199]    0548: CD 10                                 int 10h
+[ 200]    054A: 42                                    inc dx
+[ 201]    054B: 83 FA 7E                              cmp dx, 126
+[ 202]    054E: 75 F4                                 jnz u4
+[ 203]        :                                       
+[ 204]        :                                       
+[ 205]    0550: B9 82 00                              mov cx,130
+[ 206]    0553: BA 4B 00                              mov dx,75
+[ 207]    0556: B4 0C                                 u5: mov ah, 0ch
+[ 208]    0558: B0 3C                                 mov al,60
+[ 209]    055A: CD 10                                 int 10h
+[ 210]    055C: 41                                    inc cx
+[ 211]    055D: 4A                                    dec dx
+[ 212]    055E: 81 F9 96 00                           cmp cx, 150
+[ 213]    0562: 83 FA 20                              cmp dx, 32
+[ 214]    0565: 75 EF                                 jnz u5
+[ 215]        :                                       
+[ 216]        :                                       
+[ 217]    0567: B9 D8 00                              mov cx,216
+[ 218]    056A: BA 4B 00                              mov dx,75
+[ 219]    056D: B4 0C                                 u6: mov ah, 0ch
+[ 220]    056F: B0 3C                                 mov al, 60
+[ 221]    0571: CD 10                                 int 10h
+[ 222]    0573: 41                                    inc cx
+[ 223]    0574: 4A                                    dec dx
+[ 224]    0575: 81 F9 96 00                           cmp cx, 150
+[ 225]    0579: 83 FA 20                              cmp dx, 32
+[ 226]    057C: 75 EF                                 jnz u6
+[ 227]        :                                       
+[ 228]    057E: B9 AD 00                              mov cx,173
+[ 229]    0581: BA 20 00                              mov dx,32
+[ 230]    0584: B4 0C                                 u7: mov ah, 0ch
+[ 231]    0586: B0 3C                                 mov al, 60
+[ 232]    0588: CD 10                                 int 10h
+[ 233]    058A: 41                                    inc cx
+[ 234]    058B: 81 F9 04 01                           cmp cx,260
+[ 235]    058F: 75 F3                                 jnz u7
+[ 236]        :                                       
+[ 237]    0591: B9 82 00                              mov cx,130
+[ 238]    0594: BA 7D 00                              mov dx,125
+[ 239]    0597: B4 0C                                 u8: mov ah, 0ch
+[ 240]    0599: B0 3C                                 mov al, 60
+[ 241]    059B: CD 10                                 int 10h
+[ 242]    059D: 41                                    inc cx
+[ 243]    059E: 4A                                    dec dx
+[ 244]    059F: 81 F9 B4 00                           cmp cx, 180
+[ 245]    05A3: 83 FA 51                              cmp dx, 81
+[ 246]    05A6: 75 EF                                 jnz u8
+[ 247]        :                                       
 [ 248]        :                                       
-[ 249]    0591: B9 82 00                              mov cx,130
-[ 250]    0594: BA 7D 00                              mov dx,125
-[ 251]        :                                       ;mov al,20
-[ 252]    0597: B4 0C                                 u8: mov ah, 0ch
-[ 253]    0599: B0 3C                                 mov al, 60
-[ 254]    059B: CD 10                                 int 10h
-[ 255]    059D: 41                                    inc cx
-[ 256]    059E: 4A                                    dec dx
-[ 257]    059F: 81 F9 B4 00                           cmp cx, 180
-[ 258]    05A3: 83 FA 51                              cmp dx, 81
-[ 259]    05A6: 75 EF                                 jnz u8
-[ 260]        :                                       
-[ 261]        :                                       
-[ 262]    05A8: B9 AD 00                              mov cx,173
-[ 263]    05AB: BA 20 00                              mov dx,32
-[ 264]        :                                       ;mov al,20
-[ 265]    05AE: B4 0C                                 u9: mov ah, 0ch
-[ 266]    05B0: B0 3C                                 mov al, 60
-[ 267]    05B2: CD 10                                 int 10h
-[ 268]    05B4: 42                                    inc dx
-[ 269]    05B5: 83 FA 54                              cmp dx, 84
-[ 270]    05B8: 75 F4                                 jnz u9
-[ 271]        :                                       
-[ 272]    05BA: B9 D8 00                              mov cx,216
-[ 273]    05BD: BA 7D 00                              mov dx,125
-[ 274]        :                                       ;mov al,20
-[ 275]    05C0: B4 0C                                 u10: mov ah, 0ch
-[ 276]    05C2: B0 3C                                 mov al, 60
-[ 277]    05C4: CD 10                                 int 10h
-[ 278]    05C6: 41                                    inc cx
-[ 279]    05C7: 4A                                    dec dx
-[ 280]    05C8: 81 F9 E6 00                           cmp cx, 230
-[ 281]    05CC: 83 FA 53                              cmp dx, 83
-[ 282]    05CF: 75 EF                                 jnz u10
-[ 283]        :                                       
-[ 284]    05D1: B9 04 01                              mov cx,260
-[ 285]    05D4: BA 20 00                              mov dx,32
-[ 286]        :                                       ;mov al,20
-[ 287]    05D7: B4 0C                                 u11: mov ah, 0ch
-[ 288]    05D9: B0 3C                                 mov al, 60
-[ 289]    05DB: CD 10                                 int 10h
-[ 290]    05DD: 42                                    inc dx
-[ 291]    05DE: 83 FA 53                              cmp dx, 83
-[ 292]    05E1: 75 F4                                 jnz u11
-[ 293]        :                                       
-[ 294]    05E3: B9 AF 00                              mov cx,175
-[ 295]    05E6: BA 53 00                              mov dx,83
-[ 296]        :                                       ;mov al,20
-[ 297]    05E9: B4 0C                                 u12: mov ah, 0ch
-[ 298]    05EB: B0 3C                                 mov al,60
-[ 299]    05ED: CD 10                                 int 10h
-[ 300]    05EF: 41                                    inc cx
-[ 301]    05F0: 81 F9 04 01                           cmp cx,260
-[ 302]    05F4: 75 F3                                 jnz u12
-[ 303]        :                                       
-[ 304]        :                                       
-[ 305]        :                                       ;Aici generez sunet pentru a marca inceputul unei noi etape in proiect: desenarea de sore
-[ 306]        :                                       
-[ 307]    05F6: B0 07                                 mov al,7
-[ 308]    05F8: B4 0E                                 mov ah,0eh
-[ 309]    05FA: CD 10                                 int 10h
-[ 310]    05FC: B0 07                                 mov al,7
-[ 311]    05FE: B4 0E                                 mov ah,0eh
-[ 312]    0600: CD 10                                 int 10h
-[ 313]    0602: B0 07                                 mov al,7
-[ 314]    0604: B4 0E                                 mov ah,0eh
-[ 315]    0606: CD 10                                 int 10h
-[ 316]    0608: B0 07                                 mov al,7
-[ 317]    060A: B4 0E                                 mov ah,0eh
-[ 318]    060C: CD 10                                 int 10h
-[ 319]    060E: B0 07                                 mov al,7
-[ 320]    0610: B4 0E                                 mov ah,0eh
-[ 321]    0612: CD 10                                 int 10h
-[ 322]    0614: B0 07                                 mov al,7
-[ 323]    0616: B4 0E                                 mov ah,0eh
-[ 324]    0618: CD 10                                 int 10h
-[ 325]    061A: B0 07                                 mov al,7
-[ 326]    061C: B4 0E                                 mov ah,0eh
-[ 327]    061E: CD 10                                 int 10h
-[ 328]        :                                       
-[ 329]        :                                       ;Incepere desenare SOARE
-[ 330]        :                                       
-[ 331]        :                                       ;Se stabileste pozitia initiala a sorelui
-[ 332]        :                                       
-[ 333]    0620: BA 0F 00                              mov dx,15
-[ 334]    0623: BB 50 00                              mov bx,80
-[ 335]    0626: B9 32 00                              mov cx,50
-[ 336]    0629: 8E D9                                 mov ds,cx
+[ 249]    05A8: B9 AD 00                              mov cx,173
+[ 250]    05AB: BA 20 00                              mov dx,32
+[ 251]    05AE: B4 0C                                 u9: mov ah, 0ch
+[ 252]    05B0: B0 3C                                 mov al, 60
+[ 253]    05B2: CD 10                                 int 10h
+[ 254]    05B4: 42                                    inc dx
+[ 255]    05B5: 83 FA 54                              cmp dx, 84
+[ 256]    05B8: 75 F4                                 jnz u9
+[ 257]        :                                       
+[ 258]    05BA: B9 D8 00                              mov cx,216
+[ 259]    05BD: BA 7D 00                              mov dx,125
+[ 260]    05C0: B4 0C                                 u10: mov ah, 0ch
+[ 261]    05C2: B0 3C                                 mov al, 60
+[ 262]    05C4: CD 10                                 int 10h
+[ 263]    05C6: 41                                    inc cx
+[ 264]    05C7: 4A                                    dec dx
+[ 265]    05C8: 81 F9 E6 00                           cmp cx, 230
+[ 266]    05CC: 83 FA 53                              cmp dx, 83
+[ 267]    05CF: 75 EF                                 jnz u10
+[ 268]        :                                       
+[ 269]    05D1: B9 04 01                              mov cx,260
+[ 270]    05D4: BA 20 00                              mov dx,32
+[ 271]    05D7: B4 0C                                 u11: mov ah, 0ch
+[ 272]    05D9: B0 3C                                 mov al, 60
+[ 273]    05DB: CD 10                                 int 10h
+[ 274]    05DD: 42                                    inc dx
+[ 275]    05DE: 83 FA 53                              cmp dx, 83
+[ 276]    05E1: 75 F4                                 jnz u11
+[ 277]        :                                       
+[ 278]    05E3: B9 AF 00                              mov cx,175
+[ 279]    05E6: BA 53 00                              mov dx,83
+[ 280]    05E9: B4 0C                                 u12: mov ah, 0ch
+[ 281]    05EB: B0 3C                                 mov al,60
+[ 282]    05ED: CD 10                                 int 10h
+[ 283]    05EF: 41                                    inc cx
+[ 284]    05F0: 81 F9 04 01                           cmp cx,260
+[ 285]    05F4: 75 F3                                 jnz u12
+[ 286]        :                                       
+[ 287]        :                                       
+[ 288]        :                                       ;Aici generez sunet pentru a marca inceputul unei noi etape in proiect: desenarea de sore
+[ 289]        :                                       
+[ 290]    05F6: B0 07                                 mov al,7
+[ 291]    05F8: B4 0E                                 mov ah,0eh
+[ 292]    05FA: CD 10                                 int 10h
+[ 293]    05FC: B0 07                                 mov al,7
+[ 294]    05FE: B4 0E                                 mov ah,0eh
+[ 295]    0600: CD 10                                 int 10h
+[ 296]    0602: B0 07                                 mov al,7
+[ 297]    0604: B4 0E                                 mov ah,0eh
+[ 298]    0606: CD 10                                 int 10h
+[ 299]    0608: B0 07                                 mov al,7
+[ 300]    060A: B4 0E                                 mov ah,0eh
+[ 301]    060C: CD 10                                 int 10h
+[ 302]    060E: B0 07                                 mov al,7
+[ 303]    0610: B4 0E                                 mov ah,0eh
+[ 304]    0612: CD 10                                 int 10h
+[ 305]    0614: B0 07                                 mov al,7
+[ 306]    0616: B4 0E                                 mov ah,0eh
+[ 307]    0618: CD 10                                 int 10h
+[ 308]    061A: B0 07                                 mov al,7
+[ 309]    061C: B4 0E                                 mov ah,0eh
+[ 310]    061E: CD 10                                 int 10h
+[ 311]        :                                       
+[ 312]        :                                       ;Incepere desenare SOARE
+[ 313]        :                                       
+[ 314]        :                                       ;Se stabileste pozitia initiala a sorelui
+[ 315]        :                                       
+[ 316]    0620: BA 0F 00                              mov dx,15
+[ 317]    0623: BB 50 00                              mov bx,80
+[ 318]    0626: B9 32 00                              mov cx,50
+[ 319]    0629: 8E D9                                 mov ds,cx
+[ 320]        :                                       
+[ 321]        :                                       
+[ 322]        :                                       ;Inceput desen partea de sus a soarelui
+[ 323]        :                                       
+[ 324]    062B: 8C D9                                 soare0: mov cx,ds ;cand bucla se repeta, cx de elibereaza pentru ca valoarea trebuie sa fie stocata
+[ 325]    062D: 83 E9 03                              sub cx,3 ;incepe linia galbena mai la stanga, pentru fiecare trecere/pas
+[ 326]    0630: 8E D9                                 mov ds,cx;retinere valoarea lui cx pentru urmatorul pas
+[ 327]        :                                       
+[ 328]    0632: B4 0C                                 soare1: mov ah,0ch
+[ 329]    0634: B0 0E                                 mov al,0eh;setare culoare galbena
+[ 330]    0636: CD 10                                 int 10h
+[ 331]    0638: 41                                    inc cx
+[ 332]    0639: 3B CB                                 cmp cx,bx
+[ 333]    063B: 75 F5                                 jnz soare1
+[ 334]        :                                       
+[ 335]    063D: 83 FA 16                              cmp dx,22;cand s-au desenat 7 linii din soare se trece la partea de mijloc a soarelui
+[ 336]    0640: 74 06                                 je break2
 [ 337]        :                                       
-[ 338]        :                                       
-[ 339]        :                                       ;Inceput desen partea de sus a soarelui
+[ 338]    0642: 42                                    inc dx  ;se muta linia cu un rand mai jos pentru a fi facuta galbena
+[ 339]    0643: 83 C3 03                              add bx,3 ;cu fiecare pas,soarele devine mai larg
 [ 340]        :                                       
-[ 341]    062B: 8C D9                                 soare0: mov cx,ds ;cand bucla se repeta, cx de elibereaza pentru ca valoarea trebuie sa fie stocata
-[ 342]    062D: 83 E9 03                              sub cx,3 ;incepe linia galbena mai la stanga, pentru fiecare trecere/pas
-[ 343]    0630: 8E D9                                 mov ds,cx;retinere valoarea lui cx pentru urmatorul pas
+[ 341]    0646: EB E3                                 jmp soare0 ;se repeta bucla cu noul dx,bx si cx
+[ 342]        :                                       
+[ 343]    0648:                                       break2:
 [ 344]        :                                       
-[ 345]    0632: B4 0C                                 soare1: mov ah,0ch
-[ 346]    0634: B0 0E                                 mov al,0eh;setare culoare galbena
-[ 347]    0636: CD 10                                 int 10h
-[ 348]    0638: 41                                    inc cx
-[ 349]    0639: 3B CB                                 cmp cx,bx
-[ 350]    063B: 75 F5                                 jnz soare1
-[ 351]        :                                       
-[ 352]    063D: 83 FA 16                              cmp dx,22;cand s-au desenat 7 linii din soare se trece la partea de mijloc a soarelui
-[ 353]    0640: 74 06                                 je break2
-[ 354]        :                                       
-[ 355]    0642: 42                                    inc dx  ;se muta linia cu un rand mai jos pentru a fi facuta galbena
-[ 356]    0643: 83 C3 03                              add bx,3 ;cu fiecare pas,soarele devine mai larg
+[ 345]    0648:                                       soare2:
+[ 346]    0648: 42                                    inc dx
+[ 347]    0649: 8C D9                                 mov cx,ds
+[ 348]        :                                       
+[ 349]        :                                       ;Inceput desen mijlocul de soare
+[ 350]        :                                       
+[ 351]    064B: B4 0C                                 soare3: mov ah,0ch
+[ 352]    064D: B0 0E                                 mov al,0eh
+[ 353]    064F: CD 10                                 int 10h
+[ 354]    0651: 41                                    inc cx
+[ 355]    0652: 3B CB                                 cmp cx,bx
+[ 356]    0654: 75 F5                                 jnz soare3
 [ 357]        :                                       
-[ 358]    0646: EB E3                                 jmp soare0 ;se repeta bucla cu noul dx,bx si cx
-[ 359]        :                                       
-[ 360]    0648:                                       break2:
-[ 361]        :                                       
-[ 362]    0648:                                       soare2:
-[ 363]    0648: 42                                    inc dx
-[ 364]    0649: 8C D9                                 mov cx,ds
-[ 365]        :                                       
-[ 366]        :                                       ;Inceput desen mijlocul de soare
-[ 367]        :                                       
-[ 368]    064B: B4 0C                                 soare3: mov ah,0ch
-[ 369]    064D: B0 0E                                 mov al,0eh
-[ 370]    064F: CD 10                                 int 10h
-[ 371]    0651: 41                                    inc cx
-[ 372]    0652: 3B CB                                 cmp cx,bx
-[ 373]    0654: 75 F5                                 jnz soare3
-[ 374]        :                                       
-[ 375]    0656: 83 FA 24                              cmp dx,36;se sare la partea de jos a soarelui cand cele 13 randuri au fost colorate galben
-[ 376]    0659: 74 02                                 je break3
-[ 377]        :                                       
-[ 378]    065B: EB EB                                 jmp soare2
-[ 379]        :                                       
-[ 380]    065D:                                       break3:
+[ 358]    0656: 83 FA 24                              cmp dx,36;se sare la partea de jos a soarelui cand cele 13 randuri au fost colorate galben
+[ 359]    0659: 74 02                                 je break3
+[ 360]        :                                       
+[ 361]    065B: EB EB                                 jmp soare2
+[ 362]        :                                       
+[ 363]    065D:                                       break3:
+[ 364]        :                                       
+[ 365]        :                                       ;Inceput desen partea de jos a soarelui,care se pliaza pe aceeasi idee descrisa mai sus, la partea de sus a soarelui
+[ 366]        :                                       
+[ 367]    065D:                                       soare4:
+[ 368]    065D: 42                                    inc dx
+[ 369]    065E: 8C D9                                 mov cx,ds
+[ 370]    0660: 83 C1 03                              add cx,3  ;incepe linia galbena mai la dreapta, cu piecare pas
+[ 371]    0663: 8E D9                                 mov ds,cx
+[ 372]    0665: 83 EB 03                              sub bx,3  ;spre deosebire de partea superioara, in aceast parte de soare linia galbena se face din ce in ce mai mica cu fiecare rand
+[ 373]        :                                       
+[ 374]    0668:                                       soare5:
+[ 375]    0668: B4 0C                                 mov ah,0ch
+[ 376]    066A: B0 0E                                 mov al,0eh
+[ 377]    066C: CD 10                                 int 10h
+[ 378]    066E: 41                                    inc cx
+[ 379]    066F: 3B CB                                 cmp cx,bx
+[ 380]    0671: 75 F5                                 jnz soare5
 [ 381]        :                                       
-[ 382]        :                                       ;Inceput desen partea de jos a soarelui,care se pliaza pe aceeasi idee descrisa mai sus, la partea de sus a soarelui
-[ 383]        :                                       
-[ 384]    065D:                                       soare4:
-[ 385]    065D: 42                                    inc dx
-[ 386]    065E: 8C D9                                 mov cx,ds
-[ 387]    0660: 83 C1 03                              add cx,3  ;incepe linia galbena mai la dreapta, cu piecare pas
-[ 388]    0663: 8E D9                                 mov ds,cx
-[ 389]    0665: 83 EB 03                              sub bx,3  ;spre deosebire de partea superioara, in aceast parte de soare linia galbena se face din ce in ce mai mica cu fiecare rand
-[ 390]        :                                       
-[ 391]    0668:                                       soare5:
-[ 392]    0668: B4 0C                                 mov ah,0ch
-[ 393]    066A: B0 0E                                 mov al,0eh
-[ 394]    066C: CD 10                                 int 10h
-[ 395]    066E: 41                                    inc cx
-[ 396]    066F: 3B CB                                 cmp cx,bx
-[ 397]    0671: 75 F5                                 jnz soare5
-[ 398]        :                                       
-[ 399]    0673: 83 FA 2B                              cmp dx,43 ;dupa inca 7 randuri, fiecare dintre acestea sunt mai inguste cele anterioare
-[ 400]    0676: 74 02                                 je breakfinal
-[ 401]        :                                       
-[ 402]    0678: EB E3                                 jmp soare4
-[ 403]        :                                       
-[ 404]    067A:                                       breakfinal:
-[ 405]        :                                       
-[ 406]        :                                       
-[ 407]        :                                       ;Aici am adaugat sunet pentru a marca inceputul unei noi etape:inceperea desenului pentru umbra
+[ 382]    0673: 83 FA 2B                              cmp dx,43 ;dupa inca 7 randuri, fiecare dintre acestea sunt mai inguste cele anterioare
+[ 383]    0676: 74 02                                 je breakfinal
+[ 384]        :                                       
+[ 385]    0678: EB E3                                 jmp soare4
+[ 386]        :                                       
+[ 387]    067A:                                       breakfinal:
+[ 388]        :                                       
+[ 389]        :                                       
+[ 390]        :                                       ;Aici am adaugat sunet pentru a marca inceputul unei noi etape:inceperea desenului pentru umbra
+[ 391]        :                                       
+[ 392]    067A: B0 07                                 mov al,7
+[ 393]    067C: B4 0E                                 mov ah,0eh
+[ 394]    067E: CD 10                                 int 10h
+[ 395]    0680: B0 07                                 mov al,7
+[ 396]    0682: B4 0E                                 mov ah,0eh
+[ 397]    0684: CD 10                                 int 10h
+[ 398]    0686: B0 07                                 mov al,7
+[ 399]    0688: B4 0E                                 mov ah,0eh
+[ 400]    068A: CD 10                                 int 10h
+[ 401]    068C: B0 07                                 mov al,7
+[ 402]    068E: B4 0E                                 mov ah,0eh
+[ 403]    0690: CD 10                                 int 10h
+[ 404]    0692: B0 07                                 mov al,7
+[ 405]    0694: B4 0E                                 mov ah,0eh
+[ 406]    0696: CD 10                                 int 10h
+[ 407]        :                                       
 [ 408]        :                                       
-[ 409]    067A: B0 07                                 mov al,7
-[ 410]    067C: B4 0E                                 mov ah,0eh
-[ 411]    067E: CD 10                                 int 10h
-[ 412]    0680: B0 07                                 mov al,7
-[ 413]    0682: B4 0E                                 mov ah,0eh
-[ 414]    0684: CD 10                                 int 10h
-[ 415]    0686: B0 07                                 mov al,7
-[ 416]    0688: B4 0E                                 mov ah,0eh
-[ 417]    068A: CD 10                                 int 10h
-[ 418]    068C: B0 07                                 mov al,7
-[ 419]    068E: B4 0E                                 mov ah,0eh
-[ 420]    0690: CD 10                                 int 10h
-[ 421]    0692: B0 07                                 mov al,7
-[ 422]    0694: B4 0E                                 mov ah,0eh
-[ 423]    0696: CD 10                                 int 10h
-[ 424]        :                                       
-[ 425]        :                                       
-[ 426]        :                                       ;Inceput desenare umbra
-[ 427]        :                                       
-[ 428]    0698: B9 82 00                              mov cx,130
-[ 429]    069B: BA 7D 00                              mov dx,125
-[ 430]        :                                       ;mov al,20
-[ 431]    069E: B4 0C                                 u13: mov ah, 0ch
-[ 432]    06A0: B0 0F                                 mov al, 15
-[ 433]    06A2: CD 10                                 int 10h
-[ 434]    06A4: 41                                    inc cx
-[ 435]    06A5: 42                                    inc dx
-[ 436]    06A6: 81 F9 B4 00                           cmp cx, 180
-[ 437]    06AA: 81 FA 96 00                           cmp dx, 150
-[ 438]    06AE: 75 EE                                 jnz u13
-[ 439]        :                                       
-[ 440]    06B0: B9 D8 00                              mov cx,216
-[ 441]    06B3: BA 7D 00                              mov dx,125
-[ 442]        :                                       ;mov al,20
-[ 443]    06B6: B4 0C                                 u14: mov ah, 0ch
-[ 444]    06B8: B0 0F                                 mov al, 15
-[ 445]    06BA: CD 10                                 int 10h
-[ 446]    06BC: 41                                    inc cx
-[ 447]    06BD: 42                                    inc dx
-[ 448]    06BE: 81 F9 04 01                           cmp cx, 260
-[ 449]    06C2: 81 FA 96 00                           cmp dx, 150
-[ 450]    06C6: 75 EE                                 jnz u14
-[ 451]        :                                       
-[ 452]    06C8: B9 04 01                              mov cx,260
-[ 453]    06CB: BA 53 00                              mov dx,83
-[ 454]        :                                       ;mov al,20
-[ 455]    06CE: B4 0C                                 u15: mov ah, 0ch
-[ 456]    06D0: B0 0F                                 mov al, 15
-[ 457]    06D2: CD 10                                 int 10h
-[ 458]    06D4: 41                                    inc cx
-[ 459]    06D5: 42                                    inc dx
-[ 460]    06D6: 81 F9 30 01                           cmp cx, 304
-[ 461]    06DA: 83 FA 6A                              cmp dx, 106
-[ 462]    06DD: 75 EF                                 jnz u15
+[ 409]        :                                       ;Inceput desenare umbra
+[ 410]        :                                       
+[ 411]    0698: B9 82 00                              mov cx,130
+[ 412]    069B: BA 7D 00                              mov dx,125
+[ 413]    069E: B4 0C                                 u13: mov ah, 0ch
+[ 414]    06A0: B0 0F                                 mov al, 15
+[ 415]    06A2: CD 10                                 int 10h
+[ 416]    06A4: 41                                    inc cx
+[ 417]    06A5: 42                                    inc dx
+[ 418]    06A6: 81 F9 B4 00                           cmp cx, 180
+[ 419]    06AA: 81 FA 96 00                           cmp dx, 150
+[ 420]    06AE: 75 EE                                 jnz u13
+[ 421]        :                                       
+[ 422]    06B0: B9 D8 00                              mov cx,216
+[ 423]    06B3: BA 7D 00                              mov dx,125
+[ 424]    06B6: B4 0C                                 u14: mov ah, 0ch
+[ 425]    06B8: B0 0F                                 mov al, 15
+[ 426]    06BA: CD 10                                 int 10h
+[ 427]    06BC: 41                                    inc cx
+[ 428]    06BD: 42                                    inc dx
+[ 429]    06BE: 81 F9 04 01                           cmp cx, 260
+[ 430]    06C2: 81 FA 96 00                           cmp dx, 150
+[ 431]    06C6: 75 EE                                 jnz u14
+[ 432]        :                                       
+[ 433]    06C8: B9 04 01                              mov cx,260
+[ 434]    06CB: BA 53 00                              mov dx,83
+[ 435]    06CE: B4 0C                                 u15: mov ah, 0ch
+[ 436]    06D0: B0 0F                                 mov al, 15
+[ 437]    06D2: CD 10                                 int 10h
+[ 438]    06D4: 41                                    inc cx
+[ 439]    06D5: 42                                    inc dx
+[ 440]    06D6: 81 F9 30 01                           cmp cx, 304
+[ 441]    06DA: 83 FA 6A                              cmp dx, 106
+[ 442]    06DD: 75 EF                                 jnz u15
+[ 443]        :                                       
+[ 444]    06DF: B9 9B 00                              mov cx,155
+[ 445]    06E2: BA 96 00                              mov dx,150
+[ 446]    06E5: B4 0C                                 u16: mov ah,0ch
+[ 447]    06E7: B0 0F                                 mov al,15
+[ 448]    06E9: CD 10                                 int 10h
+[ 449]    06EB: 41                                    inc cx
+[ 450]    06EC: 81 F9 F0 00                           cmp cx, 240
+[ 451]    06F0: 75 F3                                 jnz u16
+[ 452]        :                                       
+[ 453]    06F2: B9 F0 00                              mov cx,240
+[ 454]    06F5: BA 96 00                              mov dx,150
+[ 455]    06F8: B4 0C                                 u17: mov ah, 0ch
+[ 456]    06FA: B0 0F                                 mov al, 15
+[ 457]    06FC: CD 10                                 int 10h
+[ 458]    06FE: 41                                    inc cx
+[ 459]    06FF: 4A                                    dec dx
+[ 460]    0700: 81 F9 30 01                           cmp cx, 304
+[ 461]    0704: 83 FA 6A                              cmp dx, 106
+[ 462]    0707: 75 EF                                 jnz u17
 [ 463]        :                                       
-[ 464]    06DF: B9 9B 00                              mov cx,155
-[ 465]    06E2: BA 96 00                              mov dx,150
-[ 466]        :                                       ;mov al, 20
-[ 467]    06E5: B4 0C                                 u16: mov ah,0ch
-[ 468]    06E7: B0 0F                                 mov al,15
-[ 469]    06E9: CD 10                                 int 10h
-[ 470]    06EB: 41                                    inc cx
-[ 471]    06EC: 81 F9 F0 00                           cmp cx, 240
-[ 472]    06F0: 75 F3                                 jnz u16
-[ 473]        :                                       
-[ 474]    06F2: B9 F0 00                              mov cx,240
-[ 475]    06F5: BA 96 00                              mov dx,150
-[ 476]        :                                       ;mov al,20
-[ 477]    06F8: B4 0C                                 u17: mov ah, 0ch
-[ 478]    06FA: B0 0F                                 mov al, 15
-[ 479]    06FC: CD 10                                 int 10h
-[ 480]    06FE: 41                                    inc cx
-[ 481]    06FF: 4A                                    dec dx
-[ 482]    0700: 81 F9 30 01                           cmp cx, 304
-[ 483]    0704: 83 FA 6A                              cmp dx, 106
-[ 484]    0707: 75 EF                                 jnz u17
-[ 485]        :                                       
-[ 486]        :                                       
-[ 487]    0709: B4 00                                 mov ah,00
-[ 488]    070B: CD 16                                 int 16h
-[ 489]        :                                       
-[ 490]        :                                       
-[ 491]    070D: C3                                    ret
-[ 492]        :                                       
+[ 464]        :                                       
+[ 465]    0709: B4 00                                 mov ah,00
+[ 466]    070B: CD 16                                 int 16h
+[ 467]        :                                       
+[ 468]        :                                       
+[ 469]    070D: C3                                    ret
+[ 470]        :                                       
  
 ===================================================================================================
  
